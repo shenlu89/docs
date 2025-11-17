@@ -89,7 +89,7 @@ export function AppSidebar() {
           >
             <Logo />
             <h2 className="text-xl font-extrabold hover:text-gray-900 dark:hover:text-gray-100">
-              LiteDocs
+              Geman
             </h2>
           </Link>
           <Link
