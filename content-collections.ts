@@ -12,6 +12,7 @@ import {
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeSlug from "rehype-slug";
 import { z } from "zod";
+import { homePage, getSlug } from "@/lib/i18n";
 
 const pages = defineCollection({
   name: "pages",
@@ -20,6 +21,7 @@ const pages = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    content: z.string(),
   }),
   transform: async (document, context) => {
     // Compile MDX with rehype plugins
@@ -54,7 +56,7 @@ const pages = defineCollection({
 
     const id = document._meta.fileName.replace(".mdx", "");
 
-    const slug = document._meta.path;
+    const slug = getSlug(document._meta.path, homePage)
 
     const category = document._meta.directory;
 

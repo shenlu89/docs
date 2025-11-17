@@ -3,26 +3,27 @@ import { AppNavbar } from "@/components/navbar";
 import { AppSidebar } from "@/components/sidebar";
 import { allPages, type Page } from "content-collections";
 import { MDXContent } from "@content-collections/mdx/react";
-import { Pagination } from "@/components/pagination"
+import { Pagination } from "@/components/pagination";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { getTableOfContents } from "@/lib/toc"
+import { getTableOfContents } from "@/lib/toc";
 import { TableOfContents } from "@/components/table-of-contents";
 
-import { Faq } from "@/components/docs/faq"
+import { Faq } from "@/components/docs/faq";
 
 const components = {
   Faq,
-}
+};
 
 export default async function Page({
   params,
 }: {
-  params: Promise<{ slug?: string[] }>;
+  params: { slug?: string[] };
 }) {
-  const slug = (await params).slug?.join("/") || "introduction";
-  const page = allPages.find((p: Page) => p.slug === slug);
+  const { slug = [] } = await params;
+  const _slug = slug.join("/");
+  const page = allPages.find((p: Page) => p.slug === _slug);
   if (page) {
-    const toc = await getTableOfContents(page.content)
+    const toc = await getTableOfContents(page.content);
     return (
       <SidebarProvider>
         <AppNavbar />
