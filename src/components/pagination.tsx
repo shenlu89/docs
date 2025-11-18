@@ -1,17 +1,17 @@
-'use client'
-import Link from "@/components/custom-link"
-import { ArrowLeft, ArrowRight } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { usePathname } from "next/navigation"
-import { getNavigationPages } from "@/lib/sidebar"
+"use client";
+import Link from "@/components/custom-link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+import { getNavigationPages } from "@/lib/sidebar";
 
 export function Pagination() {
-  const pathname = usePathname()
-  const slug = (pathname?.replace(/^\/+/, "") || "introduction")
-  const { prev, next } = getNavigationPages(slug)
+  const pathname = usePathname();
+  const slug = pathname?.replace(/^\/+/, "") || "introduction";
+  const { prev, next } = getNavigationPages(slug);
 
   if (!prev && !next) {
-    return null
+    return null;
   }
 
   return (
@@ -22,7 +22,7 @@ export function Pagination() {
             href={prev.href}
             className={cn(
               "group flex items-center gap-2 p-4 rounded border transition-colors",
-              "hover:bg-muted/50 hover:border-border"
+              "hover:bg-muted/50 hover:border-border",
             )}
           >
             <div className="text-left">
@@ -41,7 +41,7 @@ export function Pagination() {
             href={next.href}
             className={cn(
               "group flex items-center gap-2 p-4 rounded border transition-colors",
-              "hover:bg-muted/50 hover:border-border justify-end"
+              "hover:bg-muted/50 hover:border-border justify-end",
             )}
           >
             <div className="text-right">
@@ -55,5 +55,5 @@ export function Pagination() {
         )}
       </div>
     </div>
-  )
+  );
 }

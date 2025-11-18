@@ -1,42 +1,39 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 
-import type { TableOfContents } from "@/lib/toc"
-import { cn } from "@/lib/utils"
+import type { TableOfContents } from "@/lib/toc";
+import { cn } from "@/lib/utils";
 
 interface TocProps {
-  toc: TableOfContents
+  toc: TableOfContents;
 }
 
-type TocItem = { title: string; url: string; items?: TocItem[] }
+type TocItem = { title: string; url: string; items?: TocItem[] };
 
 function flattenTree(items?: TocItem[]): string[] {
-  if (!items) return []
-  const urls: string[] = []
+  if (!items) return [];
+  const urls: string[] = [];
   for (const item of items) {
-    urls.push(item.url)
+    urls.push(item.url);
     if (item.items?.length) {
-      urls.push(...flattenTree(item.items))
+      urls.push(...flattenTree(item.items));
     }
   }
-  return urls
+  return urls;
 }
 
 export function TableOfContents({ toc }: TocProps) {
-  const itemIds = React.useMemo(
-    () => {
-      const urls = flattenTree(toc.items)
-      return urls
-        .map((url) => url.split("#")[1])
-        .filter((id): id is string => !!id)
-    },
-    [toc.items]
-  )
-  const activeHeading = useActiveItem(itemIds)
+  const itemIds = React.useMemo(() => {
+    const urls = flattenTree(toc.items);
+    return urls
+      .map((url) => url.split("#")[1])
+      .filter((id): id is string => !!id);
+  }, [toc.items]);
+  const activeHeading = useActiveItem(itemIds);
 
   if (!toc?.items?.length) {
-    return null
+    return null;
   }
 
   return (
@@ -52,48 +49,48 @@ export function TableOfContents({ toc }: TocProps) {
         <Tree tree={toc} activeItem={activeHeading} />
       </div>
     </>
-  )
+  );
 }
 
 function useActiveItem(itemIds: string[]) {
-  const [activeId, setActiveId] = React.useState<string | null>(null)
+  const [activeId, setActiveId] = React.useState<string | null>(null);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveId(entry.target.id)
+            setActiveId(entry.target.id);
           }
-        })
+        });
       },
-      { rootMargin: `0% 0% -80% 0%` }
-    )
+      { rootMargin: `0% 0% -80% 0%` },
+    );
 
     itemIds?.forEach((id) => {
-      const element = document.getElementById(id)
+      const element = document.getElementById(id);
       if (element) {
-        observer.observe(element)
+        observer.observe(element);
       }
-    })
+    });
 
     return () => {
       itemIds?.forEach((id) => {
-        const element = document.getElementById(id)
+        const element = document.getElementById(id);
         if (element) {
-          observer.unobserve(element)
+          observer.unobserve(element);
         }
-      })
-    }
-  }, [itemIds])
+      });
+    };
+  }, [itemIds]);
 
-  return activeId
+  return activeId;
 }
 
 interface TreeProps {
-  tree: TableOfContents
-  level?: number
-  activeItem?: string | null
+  tree: TableOfContents;
+  level?: number;
+  activeItem?: string | null;
 }
 
 function Tree({ tree, level = 1, activeItem }: TreeProps) {
@@ -108,7 +105,7 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
                 "inline-block no-underline hover:text-foreground",
                 item.url === `#${activeItem}`
                   ? "text-foreground"
-                  : "text-muted-foreground"
+                  : "text-muted-foreground",
               )}
             >
               {item.title}
@@ -117,8 +114,8 @@ function Tree({ tree, level = 1, activeItem }: TreeProps) {
               <Tree tree={item} level={level + 1} activeItem={activeItem} />
             ) : null}
           </li>
-        )
+        );
       })}
     </ul>
-  ) : null
+  ) : null;
 }

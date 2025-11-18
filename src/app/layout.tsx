@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Outfit, Roboto_Mono } from 'next/font/google'
-import { ThemeProvider } from 'next-themes'
+import { Outfit, Roboto_Mono } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
 const outfit = Outfit({
-  variable: '--font-outfit',
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
 const robotoMono = Roboto_Mono({
-  variable: '--font-roboto-mono',
+  variable: "--font-roboto-mono",
   subsets: ["latin"],
 });
 
@@ -24,14 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en"
-      suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${outfit.variable} ${robotoMono.variable} font-sans antialiased h-screen`}
       >
-        <ThemeProvider attribute="class">
-          {children}
-        </ThemeProvider>
+        <ThemeProvider attribute="class">{children}</ThemeProvider>
       </body>
     </html>
   );

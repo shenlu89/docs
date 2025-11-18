@@ -38,7 +38,7 @@ function SidebarSection({
           "flex items-center gap-2 px-3 py-2 text-sm rounded",
           "hover:bg-gray-200 dark:hover:bg-gray-800 hover:text-accent-foreground text-gray-600 dark:text-gray-300 dark:hover:text-white",
           currentPath === item.href &&
-          "bg-gray-200 text-accent-foreground dark:bg-gray-800 dark:hover:text-white",
+            "bg-gray-200 text-accent-foreground dark:bg-gray-800 dark:hover:text-white",
         )}
       >
         {item.title}
