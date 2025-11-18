@@ -7,7 +7,7 @@ import { getNavigationPages } from "@/lib/sidebar";
 
 export function Pagination() {
   const pathname = usePathname();
-  const slug = pathname?.replace(/^\/+/, "") || "introduction";
+  const slug = pathname?.replace(/^\/+/, "");
   const { prev, next } = getNavigationPages(slug);
 
   if (!prev && !next) {
