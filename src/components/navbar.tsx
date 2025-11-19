@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { DiscordButton } from "@/components/discord-button";
 import { GithubButton } from "@/components/github-button";
 import ThemeButton from "@/components/theme-button";
+import { LanguageButton } from "./language-button";
 
 interface Navbar extends HTMLAttributes<HTMLDivElement> { }
 
@@ -25,6 +26,7 @@ export const AppNavbar: React.FC<Navbar> = ({
       {...props}
     >
       <nav className="flex items-center gap-4">
+        <LanguageButton />
         <ThemeButton />
         <DiscordButton />
         <GithubButton />
