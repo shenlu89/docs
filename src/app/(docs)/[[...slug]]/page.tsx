@@ -20,8 +20,7 @@ export default async function Page({
   params: { slug?: string[] };
 }) {
   const { slug = [] } = await params;
-  const _slug = slug.join("/");
-  const page = allPages.find((p: Page) => p.slug === _slug);
+  const page = allPages.find((p: Page) => p.slug === slug.join("/"));
   if (page) {
     const toc = await getTableOfContents(page.content);
     return (
